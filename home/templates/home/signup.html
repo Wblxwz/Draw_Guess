@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo</title>
+  <!-- 请勿在项目正式环境中引用该 layui.css 地址 -->
+  <link href="{% static 'layui/css/layui.css' %}" rel="stylesheet">
+</head>
+<body>
+<style>
+.demo-reg-container{width: 320px; margin: 21px auto 0;}
+.demo-reg-other .layui-icon{position: relative; display: inline-block; margin: 0 2px; top: 2px; font-size: 26px;}
+body {
+  margin-top: 10%;
+}
+</style>
+<form class="layui-form" method="post">
+  {% csrf_token  %}
+  <div class="demo-reg-container">
+    <div class="layui-form-item">
+      <div class="layui-row">
+        <div class="layui-col-xs7">
+          <div class="layui-input-wrap">
+          </div>
+        </div>
+        <div class="layui-col-xs5">
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-input-wrap">
+        <div class="layui-input-prefix">
+          <i class="layui-icon layui-icon-vercode"></i>
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-input-wrap">
+        <div class="layui-input-prefix">
+          <i class="layui-icon layui-icon-password"></i>
+        </div>
+        <input type="password" name="password" value="" lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input" id="reg-password" lay-affix="eye">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-input-wrap">
+        <div class="layui-input-prefix">
+          <i class="layui-icon layui-icon-password"></i>
+        </div>
+        <input type="password" name="confirmPassword" value="" lay-verify="required|confirmPassword" placeholder="确认密码" autocomplete="off" class="layui-input" lay-affix="eye">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-input-wrap">
+        <div class="layui-input-prefix">
+          <i class="layui-icon layui-icon-username"></i>
+        </div>
+        <input type="text" name="nickname" value="" lay-verify="required" placeholder="昵称" autocomplete="off" class="layui-input" lay-affix="clear">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <input type="checkbox" name="agreement" lay-verify="required" lay-skin="primary" title="同意"> 
+      <a onclick="showTerms()" target="_blank" style="position: relative; top: 6px; left: -15px;">
+        <ins>用户协议</ins>
+      </a>
+    </div>
+    <div class="layui-form-item">
+      <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-reg">注册</button>
+    </div>
+    <div class="layui-form-item demo-reg-other">
+      <label>社交账号注册</label>
+      <span style="padding: 0 21px 0 6px;">
+        <a href="javascript:;"><i class="layui-icon layui-icon-login-qq" style="color: #3492ed;"></i></a>
+        <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat" style="color: #4daf29;"></i></a>
+        <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo" style="color: #cf1900;"></i></a>
+      </span>
+      <a href="{% url 'home' %}">登录已有帐号</a>
+    </div>
+  </div>
+</form>
+  
+<!-- 请勿在项目正式环境中引用该 layui.js 地址 -->
+<script src="{% static 'layui/layui.js' %}"></script>
+<script>
+function showTerms() {
+  // 显示用户协议内容
+  layer.open({
+    title: '用户协议',
+    content: `
+      <div style="text-align: left;">
+        <p>聊天室用户协议</p>
+        <p>最后更新日期：2025年7月14日</p>
+        <p>生效日期：2025年7月14日</p>
+        <p>欢迎使用本聊天室服务（以下简称“本服务”）。在注册或使用本服务前，请仔细阅读本《用户协议》（以下简称“协议”）。当您勾选“同意”或实际使用本服务时，即表示您已充分理解并接受本协议的全部条款，并同意遵守相关法律法规及社区规则。</p>
+        <p><strong>一、 服务说明</strong></p>
+        <p>本服务为用户提供实时文字、图片、音视频等内容的在线交流平台。</p>
+        <p>用户需注册账号并遵守本协议方可使用服务，部分功能可能需实名认证。</p>
+        <p>平台保留因运营需要修改、暂停或终止服务的权利。</p>
+        <p><strong>二、 用户行为规范</strong></p>
+        <p>您承诺不从事以下行为：</p>
+        <ul>
+          <li>发布违反法律法规的内容（如暴力、恐怖、赌博、毒品、色情等）；</li>
+          <li>传播虚假信息、侵犯他人名誉权、隐私权或知识产权；</li>
+          <li>进行人身攻击、歧视性言论、骚扰或煽动仇恨；</li>
+          <li>发布广告、垃圾信息或恶意刷屏；</li>
+          <li>利用技术手段干扰服务器或窃取数据；</li>
+          <li>冒充他人或机构身份；</li>
+          <li>其他违反公序良俗或平台规则的行为。</li>
+        </ul>
+        <p><strong>三、 内容权属与责任</strong></p>
+        <p>用户发布的内容版权归原作者所有，但授予平台全球范围内免费的、非独占的传播授权。</p>
+        <p>用户需对自身发布内容独立承担责任，平台不对用户内容真实性、合法性负责。</p>
+        <p>平台有权根据法规或社区准则删除违规内容，无需事先通知。</p>
+        <p><strong>四、 隐私保护</strong></p>
+        <p>用户隐私受严格保护，收集信息范围及使用规则详见《隐私政策》。平台不会主动公开用户个人信息，除非经用户同意或应司法机关要求。</p>
+        <p><strong>五、 账号管理</strong></p>
+        <p>禁止转让、出借账号，用户对账号下所有行为负责。如发现账号被盗用，应立即联系平台冻结。</p>
+        <p>平台有权对违反协议的用户采取警告、限制功能、封禁账号等措施，情节严重者将依法上报主管部门。</p>
+        <p><strong>六、 免责声明</strong></p>
+        <p>用户间交流产生的纠纷由当事人自行解决，平台不承担法律责任。</p>
+        <p>因不可抗力（如黑客攻击、系统维护）导致的服务中断，平台不承担责任。</p>
+        <p>用户因使用本服务遭受的间接损失（如数据丢失、收益损失），平台不予赔偿。</p>
+        <p><strong>七、 协议修改与终止</strong></p>
+        <p>平台有权根据法律法规或业务调整更新本协议，更新后将通过公告/站内信通知。</p>
+        <p>若您不同意修改后的协议，可停止使用服务；继续使用视为接受新条款。</p>
+        <p>用户可主动注销账号，注销后协议终止（但已授予平台的许可仍有效）。</p>
+        <p><strong>八、 法律适用与争议解决</strong></p>
+        <p>本协议适用中华人民共和国法律。</p>
+        <p>争议应首先通过友好协商解决；协商不成，提交平台运营方所在地人民法院诉讼。</p>
+        <p>请您再次确认：</p>
+        <ul>
+          <li>✅ 我已阅读并同意全部条款，清楚违规行为的后果。</li>
+          <li>✅ 我承诺提供真实信息并遵守社区管理规则。</li>
+        </ul>
+      </div>
+    `,
+});
+}
+layui.use(function(){
+  var $ = layui.$;
+  var form = layui.form;
+  var layer = layui.layer;
+  var util = layui.util;
+  
+  // 自定义验证规则
+  form.verify({
+    // 确认密码
+    confirmPassword: function(value, item){
+      var passwordValue = $('#reg-password').val();
+      if(value !== passwordValue){
+        return '两次密码输入不一致';
+      }
+    }
+  });
+  
+  // 提交事件
+  form.on('submit(demo-reg)', function(data){
+    var field = data.field; // 获取表单字段值
+    
+    // 是否勾选同意
+    if(!field.agreement){
+      layer.msg('您必须勾选同意用户协议才能注册');
+      return false;
+    }
+  });
+  
+});
+</script>
+
+{% if messages %}
+    <script>
+        {% for msg in messages %}
+            layer.alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+{% endif %}
+
+</body>
+</html>
