@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from . import models
+from rooms import models
 
 def get_rooms_count(request):
     rooms = models.Room.objects.count()
